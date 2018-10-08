@@ -1,6 +1,23 @@
 #
 
 SCRIPTFOLDER="~/.script"
+HIDDENFOLDER="hidden"
+
+###############################################################################
+# CONFIGURATION FILES                                                         #
+###############################################################################
+ln HIDDENFOLDER/.bash_profile ~/.bash_profile
+ln HIDDENFOLDER/.bash_prompt ~/.bash_prompt
+ln HIDDENFOLDER/.bashrc ~/.bashrc
+mkdir ~/.config
+mkdir ~/.config/htop
+ln HIDDENFOLDER/.config/htop/htoprc ~/.config/htop/htoprc
+ln HIDDENFOLDER/.config ~/.config
+ln HIDDENFOLDER/.exports ~/.exports
+ln HIDDENFOLDER/.functions ~/.functions
+ln HIDDENFOLDER/.gitignore ~/.gitignore
+ln HIDDENFOLDER/.inputrc ~/.inputrc
+
 
 ###############################################################################
 # PMSET                                                                       #
@@ -9,6 +26,7 @@ SCRIPTFOLDER="~/.script"
 sudo pmset -a sms 0
 # Disable hibernation (speeds up entering sleep mode)
 sudo pmset -a hibernatemode 0
+
 
 ###############################################################################
 # RamDisk                                                                     #
@@ -20,6 +38,7 @@ fi
 cp ramdisk_deamon.sh $SCRIPTFOLDER
 chmod +x $SCRIPTFOLDER/ramdisk_deamon.sh
 sudo launchctl load -w /Library/LaunchDaemons/com.nullvision.ramdisk.plist
+
 
 ###############################################################################
 # SSD Tweaks                                                                  #
