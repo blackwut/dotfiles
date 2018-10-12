@@ -54,7 +54,7 @@ defaults write com.apple.screencapture location -string "/Volumes/RamDisk"
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"
 # Set NOATIME
-sudo cp com.nullvision.noatime /Library/LaunchDaemons/com.nullvision.noatime.plist
+sudo cp com.nullvision.noatime.plist /Library/LaunchDaemons/com.nullvision.noatime.plist
 
 
 ###############################################################################
@@ -70,16 +70,14 @@ sudo defaults write /Library/Preferences/com.apple.TimeMachine DoNotOfferNewDisk
 # Trackpad                                                                    #
 ###############################################################################
 # Trackpad: enable tap to click for this user and for the login screen
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-# Trackpad: map bottom right corner to right-click
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.trackpadCornerClickBehavior -int 1
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
-# Disable “natural” (Lion-style) scrolling
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+#TODO: REWRITE ALL PREFERENCES
+# defaults write -g com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+# defaults write -g com.apple.mouse.tapBehavior -int 1
+# # Trackpad: map bottom right corner to right-click
+# defaults write -g com.apple.trackpad.trackpadCornerClickBehavior -int 1
+# defaults write -g com.apple.trackpad.enableSecondaryClick -bool true
+# # Disable “natural” (Lion-style) scrolling
+# defaults write -g com.apple.swipescrolldirection -bool false
 
 
 ###############################################################################
