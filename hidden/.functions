@@ -207,3 +207,35 @@ ftext ()
 	grep -iIHrn --color=always "$1" . | less -r
 }
 
+gituser ()
+{
+	if [ -z $1 ]; then
+		echo "ERROR name not found"
+		return 1
+	fi
+
+	if [ -z $2 ]; then
+		echo "ERROR email not found"
+		return 2
+	fi
+
+	git config user.name  $1
+	git config user.email $2 
+}
+
+
+gituserglobal ()
+{
+	if [ -z $1 ]; then
+		echo "ERROR name not found"
+		return 1
+	fi
+
+	if [ -z $2 ]; then
+		echo "ERROR email not found"
+		return 2
+	fi
+
+	git config --global user.name  $1
+	git config --global user.email $2 
+}
