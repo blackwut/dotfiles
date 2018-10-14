@@ -20,4 +20,5 @@ brew cask install vlc
 brew cask install dropbox
 brew cask install teamspeak-client
 brew cask install virtualbox
+brew cask install skype
 brew cleanup
