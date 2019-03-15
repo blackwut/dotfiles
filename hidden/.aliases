@@ -49,7 +49,7 @@ alias sudo='sudo '
 alias week='date +%V'
 
 # Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
-alias update='brew update; brew upgrade; brew cleanup'
+alias update='brew update && brew upgrade && brew cleanup'
 
 # Google Chrome
 alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
@@ -148,3 +148,10 @@ alias reload="exec ${SHELL} -l"
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
+
+# HTTPServer to share files via HTTP protocol
+alias httpserver='python -m SimpleHTTPServer 8000'
+
+# Directory size
+alias dirsize='du -sh'
+
