@@ -1,22 +1,22 @@
 #
 
 SCRIPTFOLDER="~/.script"
-HIDDENFOLDER="hidden"
+HIDDENFOLDER="./hidden"
 
 ###############################################################################
 # CONFIGURATION FILES                                                         #
 ###############################################################################
-ln HIDDENFOLDER/.bash_profile ~/.bash_profile
-ln HIDDENFOLDER/.bash_prompt ~/.bash_prompt
-ln HIDDENFOLDER/.bashrc ~/.bashrc
+ln $HIDDENFOLDER/.bash_profile ~/.bash_profile
+ln $HIDDENFOLDER/.bash_prompt ~/.bash_prompt
+ln $HIDDENFOLDER/.bashrc ~/.bashrc
 mkdir ~/.config
 mkdir ~/.config/htop
-ln HIDDENFOLDER/.config/htop/htoprc ~/.config/htop/htoprc
-ln HIDDENFOLDER/.config ~/.config
-ln HIDDENFOLDER/.exports ~/.exports
-ln HIDDENFOLDER/.functions ~/.functions
-ln HIDDENFOLDER/.gitignore ~/.gitignore
-ln HIDDENFOLDER/.inputrc ~/.inputrc
+ln $HIDDENFOLDER/.config/htop/htoprc ~/.config/htop/htoprc
+ln $HIDDENFOLDER/.config ~/.config
+ln $HIDDENFOLDER/.exports ~/.exports
+ln $HIDDENFOLDER/.functions ~/.functions
+ln $HIDDENFOLDER/.gitignore ~/.gitignore
+ln $HIDDENFOLDER/.inputrc ~/.inputrc
 
 
 ###############################################################################
@@ -31,13 +31,13 @@ sudo pmset -a hibernatemode 0
 ###############################################################################
 # RamDisk                                                                     #
 ###############################################################################
-sudo cp com.nullvision.ramdisk.plist /Library/LaunchDaemons/com.nullvision.ramdisk.plist
+sudo cp com.nullvision.ramdisk.plist ~/Library/LaunchAgents/com.nullvision.ramdisk.plist
 if [ -d $SCRIPTFOLDER ]; then
     mkdir $SCRIPTFOLDER
 fi
-cp ramdisk_deamon.sh $SCRIPTFOLDER
-chmod +x $SCRIPTFOLDER/ramdisk_deamon.sh
-sudo launchctl load -w /Library/LaunchDaemons/com.nullvision.ramdisk.plist
+cp ramdisk_daemon.sh $SCRIPTFOLDER/ramdisk_daemon.sh
+chmod +x $SCRIPTFOLDER/ramdisk_daemon.sh
+sudo launchctl load -w ~/Library/LaunchAgents//com.nullvision.ramdisk.plist
 
 
 ###############################################################################
@@ -76,7 +76,7 @@ sudo defaults write /Library/Preferences/com.apple.TimeMachine DoNotOfferNewDisk
 # # Trackpad: map bottom right corner to right-click
 # defaults write -g com.apple.trackpad.trackpadCornerClickBehavior -int 1
 # defaults write -g com.apple.trackpad.enableSecondaryClick -bool true
-# # Disable “natural” (Lion-style) scrolling
+# Disable “natural” (Lion-style) scrolling
 # defaults write -g com.apple.swipescrolldirection -bool false
 
 
