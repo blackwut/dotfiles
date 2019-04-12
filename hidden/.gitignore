@@ -1,14 +1,126 @@
-# Compiled Python files
-*.pyc
+#######################################
+# Operating Systems
+#######################################
 
-# Folder view configuration files
+# OS X
 .DS_Store
-Desktop.ini
-
-# Thumbnail cache files
 ._*
-Thumbs.db
-
-# Files that might appear on external disks
 .Spotlight-V100
 .Trashes
+.icloud
+
+# Windows
+Desktop.ini
+Thumbs.db
+ehthumbs.db
+$RECYCLE.BIN/
+
+#######################################
+# General
+#######################################
+
+# RSync
+.rsync_cache/
+
+# Files
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*.log
+
+# Directories
+log/
+logs/
+tmp/
+
+#######################################
+# IDE and Editors
+#######################################
+
+# Eclipse
+*.pydevproject
+.project
+.metadata
+bin
+bin/
+bin/**
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+.externalToolBuilders/
+*.launch
+.cproject
+.buildpath
+
+# Netbeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# IntelliJ IDEA
+*.iml
+*.ipr
+*.iws
+.idea/
+.idea_modules/
+
+#XCode
+xcuserdata
+project.xcworkspace
+
+# SublimeText project files
+*.sublime-workspace
+
+# vim
+.*.sw[a-z]
+*.un~
+Session.vim
+.netrwhist
+
+# Editors with AutoBackup
+*~
+
+
+#######################################
+# Languages
+#######################################
+
+# Java
+*.class
+*.ear
+*.jar
+*.war
+
+# C
+*.o
+*.lib
+*.a
+*.dll
+*.ko
+*.so
+*.so.*
+*.dylib
+*.exe
+*.out
+*.app
+
+# C++
+*.slo
+*.lo
+*.o
+*.so
+*.dylib
+*.lai
+*.la
+*.a
+
+# Python
+*.pyc
