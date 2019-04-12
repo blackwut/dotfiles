@@ -1,0 +1,119 @@
+# duti is a command-line tool written by Andrew Mortensen, designed to set
+# default applications for document types and URL schemes on Mac OS X.
+#
+# Usage:
+# For a more complete documentation on use `man duti` or visit
+# http://duti.org/documentation.html
+#
+# A settings file is made up of lines with the following format:
+#
+#     app_id    UTI    role
+#
+# to set the default handler for the documents associated with this UTI or
+#
+#     app_id    url_scheme
+#
+# to set the default handler the given url scheme
+#
+# List of Uniform Type Identifiers in OS X:
+# https://developer.apple.com/library/mac/#documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html
+#
+# Roles:
+# all		app handles all roles for the given UTI.
+# viewer	app handles reading and displaying documents with given UTI.
+# editor	app can manipulate and save the item. Implies viewer.
+# shell		app can execute the item.
+# none		app cannot open the item, but provides an icon for the given UTI.
+#
+# Execute
+# `duti <path>.duti` to load a duti file
+# `duti -x <ext>` to print information about the default handler for extension
+# `duti -l <uti>` to display all handlers for uti
+
+# app_id (bundle ID)				UTI						Role
+# The Unarchiver
+com.macpaw.site.theunarchiver		.7z						all
+com.macpaw.site.theunarchiver		.cab					all
+com.macpaw.site.theunarchiver		.gtar					all
+com.macpaw.site.theunarchiver		.gz						all
+com.macpaw.site.theunarchiver		.hqx					all
+com.macpaw.site.theunarchiver		.jar					all
+com.macpaw.site.theunarchiver		.msi					all
+com.macpaw.site.theunarchiver		.rar					all
+com.macpaw.site.theunarchiver		.sit					all
+com.macpaw.site.theunarchiver		.sit					all
+com.macpaw.site.theunarchiver		.tar					all
+com.macpaw.site.theunarchiver		.tar.gz					all
+com.macpaw.site.theunarchiver		.tgz					all
+com.macpaw.site.theunarchiver		.zip					all
+
+# Sublimetext 3
+com.sublimetext.3					public.plain-text		all
+com.sublimetext.3					public.source-code		all
+com.sublimetext.3					public.shell-script		all
+com.sublimetext.3					public.unix-executable	all
+com.sublimetext.3					.txt					all
+com.sublimetext.3					.nfo					all
+com.sublimetext.3					.md						all
+com.sublimetext.3					.json					all
+com.sublimetext.3					.yml					all
+com.sublimetext.3					.yaml					all
+com.sublimetext.3					.md						all
+com.sublimetext.3					.csv					all
+com.sublimetext.3					.py						all
+com.sublimetext.3					.rst					all
+com.sublimetext.3					.conf					all
+com.sublimetext.3					.c						all
+com.sublimetext.3					.go						all
+com.sublimetext.3					.sh						all
+com.sublimetext.3					.log					all
+com.sublimetext.3					.ini					all
+com.sublimetext.3					.rb						all
+com.sublimetext.3					.tex					all
+com.sublimetext.3					.bib					all
+com.sublimetext.3					.sty					all
+com.sublimetext.3					.cls					all
+com.sublimetext.3					.css					all
+com.sublimetext.3					.scss					all
+com.sublimetext.3					.less					all
+com.sublimetext.3					.sass					all
+com.sublimetext.3					.php					all
+com.sublimetext.3					.js						all
+com.sublimetext.3					LICENSE					all
+com.sublimetext.3					AUTHORS					all
+com.sublimetext.3					CHANGELOG				all
+com.sublimetext.3					CONTRIBUTE				all
+com.sublimetext.3					COPYING					all
+com.sublimetext.3					README					all
+com.sublimetext.3					TODO					all
+com.sublimetext.3					Dockerfile				all
+com.sublimetext.3					Brewfile				all
+com.sublimetext.3					Makefile				all
+com.sublimetext.3					Gemfile					all
+
+#VLC
+org.videolan.vlc					.mkv					all
+org.videolan.vlc					.mp4					all
+org.videolan.vlc					.mp3					all
+org.videolan.vlc					.mp2					all
+org.videolan.vlc					.m4v					all
+org.videolan.vlc					.flv					all
+org.videolan.vlc					.avi					all
+org.videolan.vlc					.wma					all
+org.videolan.vlc					.wmv					all
+org.videolan.vlc					.m4a					all
+org.videolan.vlc					.m4b					all
+org.videolan.vlc					.mov					all
+org.videolan.vlc					.au						all
+org.videolan.vlc					.asf					all
+org.videolan.vlc					.ogm					all
+org.videolan.vlc					.ogg					all
+org.videolan.vlc					.mka					all
+org.videolan.vlc					.ts						all
+org.videolan.vlc					.aac					all
+org.videolan.vlc					.wav					all
+org.videolan.vlc					.3gp					all
+org.videolan.vlc					.flac					all
+
+#Transmission
+org.m0k.transmission				.torrent				all
