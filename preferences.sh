@@ -17,6 +17,8 @@ ln $HIDDENFOLDER/.exports ~/.exports
 ln $HIDDENFOLDER/.functions ~/.functions
 ln $HIDDENFOLDER/.gitignore ~/.gitignore
 ln $HIDDENFOLDER/.inputrc ~/.inputrc
+ln $HIDDENFOLDER/.duti ~/.duti
+ln $HIDDENFOLDER/.editorconfig ~/.editorconfig
 
 
 ###############################################################################
