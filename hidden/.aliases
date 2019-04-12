@@ -48,7 +48,7 @@ alias sudo='sudo '
 # Get week number
 alias week='date +%V'
 
-# Get macOS Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
+# Update Homebrew and Casks apps
 alias update='brew update && brew upgrade && brew cask upgrade && brew cleanup'
 
 # Google Chrome
@@ -140,18 +140,11 @@ alias map="xargs -n1"
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
 alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
-# # Lock the screen (when going AFK)
-# alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
-
-# Reload the shell (i.e. invoke as a login shell)
-alias reload="exec ${SHELL} -l"
+# Lock the screen (when going AFK)
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
 
-# HTTPServer to share files via HTTP protocol
-alias httpserver='python -m SimpleHTTPServer 8000'
-
-# Directory size
-alias dirsize='du -sh'
-
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec ${SHELL} -l"
