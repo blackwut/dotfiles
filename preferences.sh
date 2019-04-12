@@ -1,11 +1,19 @@
-#
+#!/usr/bin/env bash
 
-SCRIPTFOLDER="~/.script"
-HIDDENFOLDER="./hidden"
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+osascript -e 'tell application "System Preferences" to quit'
+
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ###############################################################################
 # CONFIGURATION FILES                                                         #
 ###############################################################################
+HIDDENFOLDER="./hidden"
 ln $HIDDENFOLDER/.bash_profile ~/.bash_profile
 ln $HIDDENFOLDER/.bash_prompt ~/.bash_prompt
 ln $HIDDENFOLDER/.bashrc ~/.bashrc
@@ -19,6 +27,15 @@ ln $HIDDENFOLDER/.gitignore ~/.gitignore
 ln $HIDDENFOLDER/.inputrc ~/.inputrc
 ln $HIDDENFOLDER/.duti ~/.duti
 ln $HIDDENFOLDER/.editorconfig ~/.editorconfig
+unset HIDDENFOLDER
+
+
+# NEW
+# Disable Resume system-wide
+defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
+
+
+
 
 
 ###############################################################################
@@ -28,11 +45,16 @@ ln $HIDDENFOLDER/.editorconfig ~/.editorconfig
 sudo pmset -a sms 0
 # Disable hibernation (speeds up entering sleep mode)
 sudo pmset -a hibernatemode 0
+# Set standby delay to 24 hours (default is 1 hour)
+sudo pmset -a standbydelay 60
+# Disable the sound effects on boot
+sudo nvram SystemAudioVolume=" "
 
 
 ###############################################################################
 # RamDisk                                                                     #
 ###############################################################################
+SCRIPTFOLDER="~/.script"
 sudo cp com.nullvision.ramdisk.plist ~/Library/LaunchAgents/com.nullvision.ramdisk.plist
 if [ -d $SCRIPTFOLDER ]; then
     mkdir $SCRIPTFOLDER
@@ -40,7 +62,7 @@ fi
 cp ramdisk_daemon.sh $SCRIPTFOLDER/ramdisk_daemon.sh
 chmod +x $SCRIPTFOLDER/ramdisk_daemon.sh
 sudo launchctl load -w ~/Library/LaunchAgents//com.nullvision.ramdisk.plist
-
+unset SCRIPTFOLDER
 
 ###############################################################################
 # SSD Tweaks                                                                  #
@@ -55,6 +77,8 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 defaults write com.apple.screencapture location -string "/Volumes/RamDisk"
 # Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
 defaults write com.apple.screencapture type -string "png"
+# Disable shadow in screenshots
+defaults write com.apple.screencapture disable-shadow -bool true
 # Set NOATIME
 sudo cp com.nullvision.noatime.plist /Library/LaunchDaemons/com.nullvision.noatime.plist
 
@@ -71,22 +95,41 @@ sudo defaults write /Library/Preferences/com.apple.TimeMachine DoNotOfferNewDisk
 ###############################################################################
 # Trackpad                                                                    #
 ###############################################################################
-# Trackpad: enable tap to click for this user and for the login screen
-#TODO: REWRITE ALL PREFERENCES
-# defaults write -g com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-# defaults write -g com.apple.mouse.tapBehavior -int 1
-# # Trackpad: map bottom right corner to right-click
-# defaults write -g com.apple.trackpad.trackpadCornerClickBehavior -int 1
-# defaults write -g com.apple.trackpad.enableSecondaryClick -bool true
+# Trackpad: enable tap to click
+defaults write -g com.apple.mouse.tapBehavior -int 1
+# Trackpad: map bottom right corner to right-click
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+defaults write -g com.apple.trackpad.trackpadCornerClickBehavior -int 1
+defaults write -g com.apple.trackpad.enableSecondaryClick -bool true
 # Disable “natural” (Lion-style) scrolling
-# defaults write -g com.apple.swipescrolldirection -bool false
+defaults write -g com.apple.swipescrolldirection -bool false
 
 
 ###############################################################################
 # Keyboard                                                                    #
 ###############################################################################
-# Keyboard Disable Auto-Correct
+# Disable automatic capitalization as it’s annoying when typing code
+defaults write -g NSAutomaticCapitalizationEnabled -bool false
+# Disable smart dashes as they’re annoying when typing code
+defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
+# Disable automatic period substitution as it’s annoying when typing code
+defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
+# Disable smart quotes as they’re annoying when typing code
+defaults write -g NSAutomaticQuoteSubstitutionEnabled -bool false
+# Disable auto-correct
 defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
+# Enable full keyboard access for all controls
+# (e.g. enable Tab in modal dialogs)
+defaults write -g AppleKeyboardUIMode -int 3
+# Use scroll gesture with the Ctrl (^) modifier key to zoom
+defaults write -g com.apple.universalaccess closeViewScrollWheelToggle -bool true
+defaults write -g com.apple.universalaccess closeViewScrollWheelModifiersInt 1048576
+# Disable press-and-hold for keys in favor of key repeat
+defaults write -g ApplePressAndHoldEnabled -bool false
+# Set a blazingly fast keyboard repeat rate
+defaults write -g KeyRepeat -int 1
+defaults write -g InitialKeyRepeat -int 10
 
 
 ###############################################################################
@@ -98,15 +141,51 @@ chflags nohidden ~/Library
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
 # Desktop Show External Media
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+# Desktop Show Mounted Server
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
+# Desktop Show Removable Media
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+
+# Show status bar
+defaults write com.apple.finder ShowStatusBar -bool true
+# Show path bar
+defaults write com.apple.finder ShowPathbar -bool true
+# Display full POSIX path as Finder window title
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+# Enable spring loading for directories
+defaults write NSGlobalDomain com.apple.springing.enabled -bool true
+# Remove the spring loading delay for directories
+defaults write NSGlobalDomain com.apple.springing.delay -float 0
+
+
 # When performing a search, search the current folder by default
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+# Keep folders on top when sorting by name
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
 # Disable the warning when changing a file extension
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 # Enable snap-to-grid for icons on the desktop and in other icon views
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy name" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy name" ~/Library/Preferences/com.apple.finder.plist
+# Set grid spacing for icons on the desktop and in other icon views
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 50" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 50" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 50" ~/Library/Preferences/com.apple.finder.plist
+# Set the size of icons on the desktop and in other icon views
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 64" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 64" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 64" ~/Library/Preferences/com.apple.finder.plist
 
+# Use list view in all Finder windows by default
+# Flwv: Cover Flow View
+# Nlsv: List View
+# clmv: Column View
+# icnv: Icon View
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+
+# Speed up Mission Control animations
+defaults write com.apple.dock expose-animation-duration -float 0.1
 # Don’t group windows by application in Mission Control
 defaults write com.apple.dock expose-group-by-app -bool false
 # Don’t show Dashboard as a Space
@@ -127,18 +206,22 @@ defaults write com.apple.dock show-recents -bool false
 # 10: Put display to sleep
 # 11: Launchpad
 # 12: Notification Center
-# Top left screen corner → Mission Control
+# Top left screen corner -> Mission Control
 defaults write com.apple.dock wvous-tl-corner -int 2
 defaults write com.apple.dock wvous-tl-modifier -int 0
-# Top right screen corner → Desktop
+# Top right screen corner -> Dashboard
 defaults write com.apple.dock wvous-tr-corner -int 7
 defaults write com.apple.dock wvous-tr-modifier -int 0
-# Bottom left screen corner → Start screen saver
-defaults write com.apple.dock wvous-bl-corner -int 4
-defaults write com.apple.dock wvous-bl-modifier -int 0
+# Bottom Right screen corner -> Desktop
+defaults write com.apple.dock wvous-br-corner -int 4
+defaults write com.apple.dock wvous-br-modifier -int 0
 
 
-killall Finder
+###############################################################################
+# Dock                                                                        #
+###############################################################################
+# Set the icon size of Dock items to 64 pixels
+defaults write com.apple.dock tilesize -int 64
 
 
 ###############################################################################
@@ -189,6 +272,9 @@ sudo mdutil -E / > /dev/null
 ###############################################################################
 # Textedit PlainTextMode enable
 defaults write com.apple.TextEdit RichText -int 0
+# Open and save files as UTF-8 in TextEdit
+defaults write com.apple.TextEdit PlainTextEncoding -int 4
+defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
 
 ###############################################################################
@@ -260,8 +346,24 @@ defaults write org.m0k.transmission RandomPort -bool true
 # Other                                                                       #
 ###############################################################################
 # Save to disk (not to iCloud) by default
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+defaults write -g NSDocumentSaveNewDocumentsToCloud -bool false
 # Disable the “Are you sure you want to open this application?” dialog
 defaults write com.apple.LaunchServices LSQuarantine -bool false
 # Enable subpixel font rendering on non-Apple LCDs
-defaults write NSGlobalDomain AppleFontSmoothing -int 1
+defaults write -g AppleFontSmoothing -int 1
+
+
+###############################################################################
+# Kill affected applications                                                  #
+###############################################################################
+
+for app in "Activity Monitor" \
+    "cfprefsd" \
+    "Dock" \
+    "Finder" \
+    "Photos" \
+    "Safari" \
+    "SystemUIServer"; do
+    killall "${app}" &> /dev/null
+done
+echo "Done. Note that some of these changes require a logout/restart to take effect."
