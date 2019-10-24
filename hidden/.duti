@@ -79,17 +79,18 @@ com.sublimetext.3					.less					all
 com.sublimetext.3					.sass					all
 com.sublimetext.3					.php					all
 com.sublimetext.3					.js						all
-com.sublimetext.3					LICENSE					all
-com.sublimetext.3					AUTHORS					all
+abnerworks.Typora					LICENSE					all
+abnerworks.Typora					AUTHORS					all
 com.sublimetext.3					CHANGELOG				all
 com.sublimetext.3					CONTRIBUTE				all
 com.sublimetext.3					COPYING					all
-com.sublimetext.3					README					all
-com.sublimetext.3					TODO					all
+abnerworks.Typora					README					all
+abnerworks.Typora					TODO					all
 com.sublimetext.3					Dockerfile				all
 com.sublimetext.3					Brewfile				all
-com.sublimetext.3					Makefile				all
+abnerworks.Typora					Makefile				all
 com.sublimetext.3					Gemfile					all
+abnerworks.Typora					Markdown				all
 
 #VLC
 org.videolan.vlc					.mkv					all
