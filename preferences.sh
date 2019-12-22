@@ -4,38 +4,63 @@
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
 
+# Adding new bash shell
+sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
+# Change shell to current user
+chsh -s /usr/local/bin/bash $USER
+
 # Ask for the administrator password upfront
 sudo -v
 
-# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+# Keep-alive: update existing `sudo` time stamp until the script has finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ###############################################################################
 # CONFIGURATION FILES                                                         #
 ###############################################################################
-HIDDENFOLDER="./hidden"
-ln $HIDDENFOLDER/.bash_profile ~/.bash_profile
-ln $HIDDENFOLDER/.bash_prompt ~/.bash_prompt
-ln $HIDDENFOLDER/.bashrc ~/.bashrc
+HIDDENFOLDER=./hidden
 mkdir ~/.config
 mkdir ~/.config/htop
 ln $HIDDENFOLDER/.config/htop/htoprc ~/.config/htop/htoprc
-ln $HIDDENFOLDER/.config ~/.config
+ln $HIDDENFOLDER/.aliases ~/.aliases
+ln $HIDDENFOLDER/.bash_profile ~/.bash_profile
+ln $HIDDENFOLDER/.bash_prompt ~/.bash_prompt
+ln $HIDDENFOLDER/.bashrc ~/.bashrc
+ln $HIDDENFOLDER/.duti ~/.duti
+ln $HIDDENFOLDER/.editorconfig ~/.editorconfig
 ln $HIDDENFOLDER/.exports ~/.exports
 ln $HIDDENFOLDER/.functions ~/.functions
 ln $HIDDENFOLDER/.gitignore ~/.gitignore
 ln $HIDDENFOLDER/.inputrc ~/.inputrc
-ln $HIDDENFOLDER/.duti ~/.duti
-ln $HIDDENFOLDER/.editorconfig ~/.editorconfig
 unset HIDDENFOLDER
 
 
-# NEW
+###############################################################################
+# General UI/UX                                                               #
+###############################################################################
+# Expand save panel by default
+defaults write -g NSNavPanelExpandedStateForSaveMode -bool true
+defaults write -g NSNavPanelExpandedStateForSaveMode2 -bool true
+# Expand print panel by default
+defaults write -g PMPrintingExpandedStateForPrint -bool true
+defaults write -g PMPrintingExpandedStateForPrint2 -bool true
+# Automatically quit printer app once the print jobs complete
+defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+# Disable the “Are you sure you want to open this application?” dialog
+defaults write com.apple.LaunchServices LSQuarantine -bool false
+# Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
+/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user #
+# Save to disk (not to iCloud) by default
+defaults write -g NSDocumentSaveNewDocumentsToCloud -bool false
+# Enable subpixel font rendering on non-Apple LCDs
+defaults write -g AppleFontSmoothing -int 1
 # Disable Resume system-wide
 defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
-
-
-
+# Increase sound quality for Bluetooth headphones/headsets
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+# Require password immediately after sleep or screen saver begins
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 
 ###############################################################################
@@ -54,15 +79,21 @@ sudo nvram SystemAudioVolume=" "
 ###############################################################################
 # RamDisk                                                                     #
 ###############################################################################
-SCRIPTFOLDER="~/.script"
-sudo cp com.nullvision.ramdisk.plist ~/Library/LaunchAgents/com.nullvision.ramdisk.plist
+SCRIPTFOLDER=~/.script
+AGENTSFOLDER=~/Library/LaunchAgents
 if [ -d $SCRIPTFOLDER ]; then
     mkdir $SCRIPTFOLDER
 fi
+if [ -d $AGENTSFOLDER ]; then
+    mkdir -p $AGENTSFOLDER
+fi
+sudo cp com.nullvision.ramdisk.plist $AGENTSFOLDER/com.nullvision.ramdisk.plist
 cp ramdisk_daemon.sh $SCRIPTFOLDER/ramdisk_daemon.sh
 chmod +x $SCRIPTFOLDER/ramdisk_daemon.sh
-sudo launchctl load -w ~/Library/LaunchAgents//com.nullvision.ramdisk.plist
+sudo launchctl load -w ~/Library/LaunchAgents/com.nullvision.ramdisk.plist
+unset AGENTSFOLDER
 unset SCRIPTFOLDER
+
 
 ###############################################################################
 # SSD Tweaks                                                                  #
@@ -96,7 +127,8 @@ sudo defaults write /Library/Preferences/com.apple.TimeMachine DoNotOfferNewDisk
 # Trackpad                                                                    #
 ###############################################################################
 # Trackpad: enable tap to click
-defaults write -g com.apple.mouse.tapBehavior -int 1
+defaults write -currentHost -g com.apple.mouse.tapBehavior -int 1
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true # Mojave
 # Trackpad: map bottom right corner to right-click
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadCornerSecondaryClick -int 2
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
@@ -153,9 +185,9 @@ defaults write com.apple.finder ShowPathbar -bool true
 # Display full POSIX path as Finder window title
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 # Enable spring loading for directories
-defaults write NSGlobalDomain com.apple.springing.enabled -bool true
+defaults write -g com.apple.springing.enabled -bool true
 # Remove the spring loading delay for directories
-defaults write NSGlobalDomain com.apple.springing.delay -float 0
+defaults write -g com.apple.springing.delay -float 0
 
 
 # When performing a search, search the current folder by default
@@ -188,7 +220,7 @@ defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 defaults write com.apple.dock expose-animation-duration -float 0.1
 # Don’t group windows by application in Mission Control
 defaults write com.apple.dock expose-group-by-app -bool false
-# Don’t show Dashboard as a Space
+# Don't show Dashboard as a Space
 defaults write com.apple.dock dashboard-in-overlay -bool true
 # Don’t automatically rearrange Spaces based on most recent use
 defaults write com.apple.dock mru-spaces -bool false
@@ -340,17 +372,6 @@ defaults write org.m0k.transmission BlocklistURL -string "http://john.bitsurge.n
 defaults write org.m0k.transmission BlocklistAutoUpdate -bool true
 # Randomize port on launch
 defaults write org.m0k.transmission RandomPort -bool true
-
-
-###############################################################################
-# Other                                                                       #
-###############################################################################
-# Save to disk (not to iCloud) by default
-defaults write -g NSDocumentSaveNewDocumentsToCloud -bool false
-# Disable the “Are you sure you want to open this application?” dialog
-defaults write com.apple.LaunchServices LSQuarantine -bool false
-# Enable subpixel font rendering on non-Apple LCDs
-defaults write -g AppleFontSmoothing -int 1
 
 
 ###############################################################################
