@@ -10,7 +10,6 @@ brew install bash-completion@2
 brew install git
 brew install gpg
 brew install macvim
-brew install tmux
 brew install htop
 brew install duti
 brew install python
@@ -25,21 +24,24 @@ brew cask install unetbootin
 brew cask install vlc
 brew cask install dropbox
 brew cask install spectacle
-# brew cask install cyberduck
+brew cask install microsoft-office
+brew cask install appcleaner
+brew cask install menumeters
+brew cask install cyberduck
 
 # Programming
 brew cask install sublime-text
 brew cask install typora
-# brew cask install netbeans
 
 # Browsers
 brew cask install google-chrome
-brew cask install opera
 
 # Socials
+brew cask install telegram-desktop
 brew cask install teamspeak-client
 brew cask install discord
 brew cask install skype
+brew cask install ferdi
 
 # Downloads
 brew cask install transmission
@@ -54,9 +56,10 @@ brew cask install virtualbox
 
 # Games
 brew cask install battle-net
+brew cask install hstracker
 
 # Cleanup
 brew cleanup
 
-# Association extension file to apps
+# Extension files
 duti ./hidden/.duti
