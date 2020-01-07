@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# Be sure to enable trim, then use this script
+# sudo trimforce enable
+
 echo "Installing brew..."
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
@@ -63,3 +67,39 @@ brew cleanup
 
 # Extension files
 duti ./hidden/.duti
+
+# Configuration Files
+HIDDENFOLDER=./hidden
+mkdir -p ~/.config
+mkdir -p ~/.config/htop
+ln $HIDDENFOLDER/.config/htop/htoprc ~/.config/htop/htoprc
+ln $HIDDENFOLDER/.aliases ~/.aliases
+ln $HIDDENFOLDER/.bash_profile ~/.bash_profile
+ln $HIDDENFOLDER/.bash_prompt ~/.bash_prompt
+ln $HIDDENFOLDER/.bashrc ~/.bashrc
+ln $HIDDENFOLDER/.duti ~/.duti
+ln $HIDDENFOLDER/.editorconfig ~/.editorconfig
+ln $HIDDENFOLDER/.exports ~/.exports
+ln $HIDDENFOLDER/.functions ~/.functions
+ln $HIDDENFOLDER/.gitignore ~/.gitignore
+ln $HIDDENFOLDER/.inputrc ~/.inputrc
+unset HIDDENFOLDER
+
+# Add global git ignore
+git config --global core.excludesfile ~/.gitignore
+
+# Adding new bash shell
+sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
+# Change shell to current user
+chsh -s /usr/local/bin/bash $USER
+
+# Adding smcFanControl to login items
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/smcFanControl.app", hidden:false}' 
+
+# List login itmes
+# osascript -e 'tell application "System Events" to get the name of every login item'
+# Add login item
+# osascript -e 'tell application "System Events" to make login item at end with properties {path:"/path/to/item_name", hidden:false}' 
+# Remove login item
+# osascript -e 'tell application "System Events" to delete login item "ITEMNAME"'
+
