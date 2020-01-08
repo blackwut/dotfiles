@@ -104,8 +104,13 @@ chsh -s /usr/local/bin/bash $USER
 
 # Adding smcFanControl to login items
 osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/smcFanControl.app", hidden:false}'
+# Adding Spectacle to login items
 osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Spectacle.app", hidden:false}'
+# Adding MenuMeters to login items
 osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/MenuMeters.app", hidden:false}'
+
+
+com.ragingmenace.MenuMeters.plist
 
 # List login itmes
 # osascript -e 'tell application "System Events" to get the name of every login item'
@@ -116,6 +121,9 @@ osascript -e 'tell application "System Events" to make login item at end with pr
 
 # smcFanControl Settings
 cp "./preferences/com.eidac.smcFanControl2.plist" ~/"Library/Preferences/com.eidac.smcFanControl2.plist"
+
+# MenuMeters Settings
+cp "./preferences/com.ragingmenace.MenuMeters.plist" ~/"Library/Preferences/com.ragingmenace.MenuMeters.plist"
 
 # Sublime Text 3 Settings
 DIR_SUBLIMETEXT=~/"Library/Application Support/Sublime Text 3"
