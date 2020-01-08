@@ -1,0 +1,11 @@
+{
+    "installed_packages":
+    [
+        "Package Control",
+        "Anaconda"
+        "C Improved",
+        "ClangAutoComplete",
+        "CUDA C++",
+        "OpenCL"
+    ]
+}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>memory_detail_mode</key>
+	<string>1</string>
+	<key>processes_sort_mode</key>
+	<string>cpu</string>
+	<key>section_status_memory</key>
+	<string>on</string>
+	<key>section_status_uptime</key>
+	<string>on</string>
+	<key>showniphone</key>
+	<string>1</string>
+	<key>skin_color</key>
+	<string>fire</string>
+	<key>smart_timer</key>
+	<string>1</string>
+	<key>sort_orders</key>
+	<string>cpu,memory,disks,network,temps,fans,battery,uptime,processes</string>
+	<key>temps_Enclosure Base 2</key>
+	<string>off</string>
+	<key>temps_Enclosure Base 3</key>
+	<string>off</string>
+	<key>temps_GPU Diode</key>
+	<string>off</string>
+	<key>temps_Heatsink B</key>
+	<string>off</string>
+	<key>update_check</key>
+	<string>off</string>
+</dict>
+</plist>
