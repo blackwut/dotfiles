@@ -290,7 +290,6 @@ sidebar.add("/Users/blackwut/Projects")
 sidebar.add("/Users/blackwut/Dropbox")
 sidebar.add("/Applications")
 sidebar.add("/Users/blackwut")
-sidebar.add("/Volumes/RamDisk")
 sidebar.add("/Volumes/Mojave")
 EOF
 
