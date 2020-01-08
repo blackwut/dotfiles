@@ -10,6 +10,11 @@
 # When your machine starts back up, go into terminal and remove the sleepimage.
 # This time, it’ll work.
 
+if csrutil status | grep -q enabled; then
+    echo "Please disable System Integrity Protection (SIP) by following sleepimage.sh script description."
+    exit
+fi
+
 # Remove the sleep image file to save disk space
 sudo rm -f /private/var/vm/sleepimage
 # Create a zero-byte file instead
