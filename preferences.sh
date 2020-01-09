@@ -356,6 +356,7 @@ defaults write com.apple.dock magnification -int 0
 dockutil --remove all
 dockutil --add "/Applications/Safari.app"
 dockutil --add "/Applications/Telegram Desktop.app"
+dockutil --add "/Applications/WhatsApp.app"
 dockutil --add "/Applications/Discord.app"
 dockutil --add "/Applications/TextEdit.app"
 dockutil --add "/Applications/Notes.app"

@@ -52,6 +52,7 @@ brew cask install google-chrome
 
 # Socials
 brew cask install telegram-desktop
+brew cask install whatsapp
 brew cask install teamspeak-client
 brew cask install discord
 brew cask install skype
