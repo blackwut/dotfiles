@@ -55,7 +55,6 @@ brew cask install telegram-desktop
 brew cask install teamspeak-client
 brew cask install discord
 brew cask install skype
-brew cask install ferdi
 
 # Downloads
 brew cask install transmission
