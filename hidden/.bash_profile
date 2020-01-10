@@ -23,11 +23,15 @@ for option in autocd cdspell cmdhist dirspell globstar histappend nocaseglob no_
 done
 
 # Add tab completion for many Bash commands
-if which brew &> /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
-	source "$(brew --prefix)/share/bash-completion/bash_completion";
-elif [ -f /etc/bash_completion ]; then
-	source /etc/bash_completion;
-fi;
+# if which brew &> /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
+# 	source "$(brew --prefix)/share/bash-completion/bash_completion";
+#     echo "gne"
+# elif [ -f /etc/bash_completion ]; then
+# 	source /etc/bash_completion;
+#     echo "gna"
+# fi;
+
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
 # Enable tab completion for `g` by marking it as an alias for `git`
 if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
