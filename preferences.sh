@@ -44,8 +44,6 @@ defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 # Save to disk (not to iCloud) by default
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
-# Disable the “Are you sure you want to open this application?” dialog
-defaults write com.apple.LaunchServices LSQuarantine -bool false
 # Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user #
 # Enable subpixel font rendering on non-Apple LCDs
@@ -54,9 +52,6 @@ defaults write NSGlobalDomain AppleFontSmoothing -int 2
 defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 # Increase sound quality for Bluetooth headphones/headsets
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
-# Require password immediately after sleep or screen saver begins
-defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 0
 # Set Help Viewer windows to non-floating mode
 defaults write com.apple.helpviewer DevMode -bool true
 # Turn Bluetooth off.
@@ -99,6 +94,9 @@ defaults write com.apple.digihub com.apple.digihub.dvd.video.appeared -dict-add 
 # Enable the debug menu in Disk Utility
 defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
 defaults write com.apple.DiskUtility advanced-image-options -bool true
+
+# Enable HiDPI display modes (requires restart)"
+sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
 
 
 ###############################################################################
@@ -380,6 +378,7 @@ dockutil --add "/Applications/System Preferences.app"
 dockutil --add "/Applications/Utilities/Terminal.app"
 dockutil --add "/Applications/HSTracker.app"
 dockutil --add "/Applications/Battle.net.app"
+dockutil --add "/Applications/Typora.app"
 dockutil --add "/Applications/Sublime Text.app"
 dockutil --add "/Applications" --view grid --display folder --sort name
 dockutil --add "$HOME/Projects" --view grid --display folder --sort name
@@ -533,6 +532,26 @@ sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdate
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool
 sudo /usr/sbin/softwareupdate --ignore "macOS Catalina"
 defaults write com.apple.systempreferences AttentionPrefBundleIDs 0
+
+
+###############################################################################
+# Security                                                                    #
+###############################################################################
+# Disable remote apple events
+sudo systemsetup -setremoteappleevents off
+# Disable remote login
+sudo systemsetup -setremotelogin off
+# Disable wake-on LAN
+sudo systemsetup -setwakeonnetworkaccess off
+# Do not show password hints
+sudo defaults write /Library/Preferences/com.apple.loginwindow RetriesUntilHint -int 0
+# Disable guest account login
+sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool false
+# Disable the “Are you sure you want to open this application?” dialog
+defaults write com.apple.LaunchServices LSQuarantine -bool false
+# Require password immediately after sleep or screen saver begins
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 0
 
 
 ###############################################################################
