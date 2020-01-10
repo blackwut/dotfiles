@@ -108,7 +108,7 @@ defaults write com.apple.DiskUtility advanced-image-options -bool true
 sudo pmset -a sms 0
 # Disable hibernation (speeds up entering sleep mode)
 sudo pmset -a hibernatemode 0
-# Set standby delay to 24 hours (default is 1 hour)
+# Set standby delay to 24 hours
 sudo pmset -a standbydelay 86400
 # Disable sleep
 sudo pmset -a sleep 0
@@ -120,7 +120,7 @@ sudo pmset -a displaysleep 1
 sudo pmset -a womp 0
 # Disable autorestart on power loss
 sudo pmset -a autorestart 0
-# Disable  slightly turn down display brightness on battery
+# Disable slightly turn down display brightness on battery
 sudo pmset -a lessbright 0
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
@@ -212,6 +212,8 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 15
 ###############################################################################
 # Unhide User Library Folder
 chflags nohidden ~/Library
+# Unhide Volumes Folder
+sudo chflags nohidden /Volumes
 # Desktop Show Internal Media
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
 # Desktop Show External Media
@@ -273,6 +275,14 @@ defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 /usr/libexec/PlistBuddy -c "Delete :FavoriteTagNames" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Add :FavoriteTagNames array" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Add :FavoriteTagNames:0 string" ~/Library/Preferences/com.apple.finder.plist
+# Configure Finder Toolbar
+/usr/libexec/PlistBuddy -c "Delete :NSToolbar\\ Configuration\\ Browser:TB\\ Item\\ Identifiers" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Add :NSToolbar\\ Configuration\\ Browser:TB\\ Item\\ Identifiers array" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Add :NSToolbar\\ Configuration\\ Browser:TB\\ Item\\ Identifiers:0 string com.apple.finder.BACK" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Add :NSToolbar\\ Configuration\\ Browser:TB\\ Item\\ Identifiers:1 string NSToolbarFlexibleSpaceItem" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Add :NSToolbar\\ Configuration\\ Browser:TB\\ Item\\ Identifiers:2 string com.apple.finder.SWCH" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Add :NSToolbar\\ Configuration\\ Browser:TB\\ Item\\ Identifiers:3 string NSToolbarFlexibleSpaceItem" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Add :NSToolbar\\ Configuration\\ Browser:TB\\ Item\\ Identifiers:4 string com.apple.finder.SRCH" ~/Library/Preferences/com.apple.finder.plist
 
 # Use list view in all Finder windows by default
 # Flwv: Cover Flow View
@@ -351,6 +361,8 @@ defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
 defaults write com.apple.dock autohide -bool false
 # Set Dock zoom size
 defaults write com.apple.dock magnification -int 0
+# Lock dock size
+defaults write com.apple.Dock size-immutable -bool yes
 
 # Rearrange icons in dock
 dockutil --remove all
@@ -518,7 +530,9 @@ sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticCheck
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool false
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticallyInstallMacOSUpdates -bool false
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdateInstall -bool false
-sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool 
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool
+sudo /usr/sbin/softwareupdate --ignore "macOS Catalina"
+defaults write com.apple.systempreferences AttentionPrefBundleIDs 0
 
 
 ###############################################################################
