@@ -102,16 +102,6 @@ sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
 # Change shell to current user
 chsh -s /usr/local/bin/bash $USER
 
-# Adding smcFanControl to login items
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/smcFanControl.app", hidden:false}'
-# Adding Spectacle to login items
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Spectacle.app", hidden:false}'
-# Adding MenuMeters to login items
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/MenuMeters.app", hidden:false}'
-
-
-com.ragingmenace.MenuMeters.plist
-
 # List login itmes
 # osascript -e 'tell application "System Events" to get the name of every login item'
 # Add login item
@@ -119,11 +109,21 @@ com.ragingmenace.MenuMeters.plist
 # Remove login item
 # osascript -e 'tell application "System Events" to delete login item "ITEMNAME"'
 
+# Adding smcFanControl to login items
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/smcFanControl.app", hidden:false}'
+# Adding Spectacle to login items
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Spectacle.app", hidden:false}'
+# Adding MenuMeters to login items
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/MenuMeters.app", hidden:false}'
+# Adding gfxCardStatus to login items
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/gfxCardStatus.app", hidden:false}'
+
 # smcFanControl Settings
 cp "./preferences/com.eidac.smcFanControl2.plist" ~/"Library/Preferences/com.eidac.smcFanControl2.plist"
-
 # MenuMeters Settings
 cp "./preferences/com.ragingmenace.MenuMeters.plist" ~/"Library/Preferences/com.ragingmenace.MenuMeters.plist"
+# gfxCardStatus Settings
+cp "./preferences/com.codykrieger.gfxCardStatus-Preferences.plist" "./preferences/com.codykrieger.gfxCardStatus.plist" ~/"Library/Preferences/."
 
 # Sublime Text 3 Settings
 DIR_SUBLIMETEXT=~/"Library/Application Support/Sublime Text 3"
