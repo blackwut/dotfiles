@@ -176,6 +176,8 @@ defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryCli
 defaults write -g com.apple.swipescrolldirection -bool false
 # Disable El Capitan shake to magnify cursor
 defaults write NSGlobalDomain CGDisableCursorLocationMagnification -bool true
+# Set speed to 5
+defaults write -g com.apple.mouse.scaling 5
 
 
 ###############################################################################
@@ -228,7 +230,7 @@ defaults write com.apple.finder QLEnableTextSelection -bool true
 defaults write com.apple.finder AppleWindowTabbingMode -string "manual"
 
 # Show status bar
-defaults write com.apple.finder ShowStatusBar -bool true
+defaults write com.apple.finder ShowStatusBar -bool false
 # Show path bar
 defaults write com.apple.finder ShowPathbar -bool true
 # Display full POSIX path as Finder window title
@@ -297,6 +299,7 @@ sidebar.removeAll()
 sidebar.add("$HOME/Projects")
 sidebar.add("$HOME/Dropbox")
 sidebar.add("$HOME/Documents")
+sidebar.add("$HOME/Desktop")
 sidebar.add("/Applications")
 sidebar.add("$HOME")
 sidebar.add("/Volumes/Mojave")
@@ -361,6 +364,8 @@ defaults write com.apple.dock autohide -bool false
 defaults write com.apple.dock magnification -int 0
 # Lock dock size
 defaults write com.apple.Dock size-immutable -bool yes
+# Disable bouncing
+defaults write com.apple.dock no-bouncing -bool true
 
 # Rearrange icons in dock
 dockutil --remove all
@@ -552,6 +557,7 @@ defaults write com.apple.LaunchServices LSQuarantine -bool false
 # Require password immediately after sleep or screen saver begins
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
+osascript -e 'tell application "System Events" to set require password to wake of security preferences to true'
 
 
 ###############################################################################
