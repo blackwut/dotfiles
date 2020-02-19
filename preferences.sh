@@ -342,7 +342,7 @@ defaults write com.apple.dock wvous-br-corner -int 4
 defaults write com.apple.dock wvous-br-modifier -int 0
 
 # Install iStatPro and configure it
-cp -r iStatPro.wdgt ~/Library/Widgets/iStatPro.wdgt
+tar -xvzf iStatPro.wdgt.tar.gz -C ~/Library/Widgets/.
 plutil -convert binary1 -o - "./preferences/widget-com.iSlayer.iStatpro4.widget.plist" > ~/"Library/Preferences/widget-com.iSlayer.iStatpro4.widget.plist"
 plutil -convert binary1 -o - "./preferences/com.apple.dashboard.plist" > ~/"Library/Preferences/com.apple.dashboard.plist"
 
