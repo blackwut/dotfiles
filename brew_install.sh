@@ -81,6 +81,7 @@ duti "$DIR_HIDDEN/.duti"
 # Configuration Files
 mkdir -p ~/".config"
 mkdir -p ~/".config/htop"
+chmod 0700 "$DIR_HIDDEN/.*"
 ln "$DIR_HIDDEN/.config/htop/htoprc" ~/".config/htop/htoprc"
 ln "$DIR_HIDDEN/.aliases" ~/".aliases"
 ln "$DIR_HIDDEN/.bash_profile" ~/".bash_profile"
@@ -92,6 +93,7 @@ ln "$DIR_HIDDEN/.exports" ~/".exports"
 ln "$DIR_HIDDEN/.functions" ~/".functions"
 ln "$DIR_HIDDEN/.gitignore" ~/".gitignore"
 ln "$DIR_HIDDEN/.inputrc" ~/".inputrc"
+ln "$DIR_HIDDEN/.editrc" ~/".editrc"
 unset DIR_HIDDEN
 
 # Add global git ignore
