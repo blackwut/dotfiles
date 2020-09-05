@@ -94,6 +94,9 @@ ln "$DIR_HIDDEN/.functions" ~/".functions"
 ln "$DIR_HIDDEN/.gitignore" ~/".gitignore"
 ln "$DIR_HIDDEN/.inputrc" ~/".inputrc"
 ln "$DIR_HIDDEN/.editrc" ~/".editrc"
+mkdir -p ~/".scripts"
+chmod +x "wowfi.sh"
+ln "wowfi.sh" ~/".scripts/wowfi.sh"
 unset DIR_HIDDEN
 
 # Add global git ignore

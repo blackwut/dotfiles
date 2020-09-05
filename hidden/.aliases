@@ -156,3 +156,6 @@ alias gp="git push"
 # study/work
 alias study="sudo systemsetup -setdisplaysleep 30; brightness 0.75;"
 alias work="sudo systemsetup -setdisplaysleep 1; brightness 1;"
+
+# WoW-FI reconnector
+alias wowfi=~"/.scripts/wowfi.sh"
