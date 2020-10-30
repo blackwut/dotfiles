@@ -46,7 +46,7 @@ alias egrep='egrep --color=auto'
 alias sudo='sudo '
 
 # Update Homebrew and Casks apps
-alias update='brew update && brew upgrade && brew cask upgrade && brew cleanup'
+alias update='brew update && brew upgrade && brew upgrade --cask && brew cleanup'
 
 # Google Chrome
 # alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
@@ -152,6 +152,7 @@ alias gd="git diff"
 alias ga="git add"
 alias gc="git commit -m"
 alias gp="git push"
+alias gr="git restore --staged"
 
 # study/work
 alias study="sudo systemsetup -setdisplaysleep 30; brightness 0.75;"
@@ -159,3 +160,4 @@ alias work="sudo systemsetup -setdisplaysleep 1; brightness 1;"
 
 # WoW-FI reconnector
 alias wowfi=~"/.scripts/wowfi.sh"
+
