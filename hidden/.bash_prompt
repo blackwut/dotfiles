@@ -11,6 +11,33 @@ elif infocmp xterm-256color >/dev/null 2>&1; then
 	export TERM='xterm-256color';
 fi;
 
+function timer_now {
+	date +%s%3N
+}
+
+function timer_start {
+	timer_start=${timer_start:-$(timer_now)}
+}
+
+function timer_stop {
+    local delta_us=$((($(timer_now) - $timer_start) / 1000))
+    local us=$((delta_us % 1000))
+    local ms=$(((delta_us / 1000) % 1000))
+    local s=$(((delta_us / 1000000) % 60))
+    local m=$(((delta_us / 60000000) % 60))
+    local h=$((delta_us / 3600000000))
+    # Goal: always show around 3 digits of accuracy
+    if ((h > 0)); then timer_show=${h}h${m}m
+    elif ((m > 0)); then timer_show=${m}m${s}s
+    elif ((s >= 10)); then timer_show=${s}.$((ms / 100))s
+    elif ((s > 0)); then timer_show=${s}.$(printf %03d $ms)s
+    elif ((ms >= 100)); then timer_show=${ms}ms
+    elif ((ms > 0)); then timer_show=${ms}.$((us / 100))ms
+    else timer_show=${us}us
+    fi
+    unset timer_start
+}
+
 prompt_git() {
 	local s='';
 	local branchName='';
@@ -105,20 +132,39 @@ else
 	hostStyle="${yellow}";
 fi;
 
-# Set the terminal title and prompt.
-PS1="\[\033]0;\W\007\]"; # working directory base name
-# PS1+="\[${bold}\]\n"; # newline
-# PS1+="\[${userStyle}\]\u"; # username
-# PS1+="\[${white}\] at ";
-# PS1+="\[${hostStyle}\]\h"; # host
-# PS1+="\[${white}\] in ";
-# PS1+="\[${white}\]:";
-PS1+="\[${green}\]\w"; # working directory full path
-PS1+="\$(prompt_git \"\[${white}\] \[${violet}\]\" \"\[${blue}\]\")"; # Git repository details
-# PS1+="\n";
-PS1+=" ";
-PS1+="\[${white}\]\$ \[${reset}\]"; # `$` (and reset color)
-export PS1;
+set_prompt() {
 
-PS2="\[${yellow}\]→ \[${reset}\]";
-export PS2;
+if [[ "$(uname -s)" != "Darwin" ]]; then
+	timer_stop
+fi
+
+	# Set the terminal title and prompt.
+	PS1="\[\033]0;\W\007\]"; # working directory base name
+	# PS1+="\[${bold}\]\n"; # newline
+	# PS1+="\[${userStyle}\]\u"; # username
+	# PS1+="\[${white}\] at ";
+	# PS1+="\[${hostStyle}\]\h"; # host
+	# PS1+="\[${white}\] in ";
+	# PS1+="\[${white}\]:";
+	PS1+="\[${green}\]\w"; # working directory full path
+	PS1+="\$(prompt_git \"\[${white}\] \[${violet}\]\" \"\[${blue}\]\")"; # Git repository details
+	# PS1+="\n";
+	PS1+=" ";
+if [[ "$(uname -s)" != "Darwin" ]]; then
+	PS1+="\[$(violet)\]($timer_show)";
+	PS1+=" ";
+fi
+	PS1+="\[${white}\]\$ \[${reset}\]"; # `$` (and reset color)
+	#export PS1;
+
+	PS2="\[${yellow}\]→ \[${reset}\]";
+	# export PS2;
+}
+
+if [[ "$(uname -s)" != "Darwin" ]]; then
+	trap 'timer_start' DEBUG
+fi
+
+PROMPT_COMMAND='set_prompt'
+
+
