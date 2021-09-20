@@ -9,5 +9,9 @@
 	"spell_check": true,
 	"tab_size": 4,
 	"theme": "Adaptive.sublime-theme",
-	"translate_tabs_to_spaces": true
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true,
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
+	"remember_full_screen": true,
+	"indent_to_bracket": true
 }
