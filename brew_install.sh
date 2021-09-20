@@ -145,6 +145,13 @@ cp "./preferences/Preferences.sublime-settings" "$DIR_USER/Preferences.sublime-s
 cp "./preferences/Package Control.sublime-settings" "$DIR_USER" 2> /dev/null
 echo "Done. Launch Sublime and press ctrl +\` for a status!"
 
+
+# Disable Microsoft Update (Word, Excel, Powerpoint)
+# disable the service
+launchctl disable gui/$(id -u)/com.microsoft.update.agent
+# check that the service is disabled
+launchctl print-disabled gui/$(id -u) | grep microsoft
+
 unset DIR_SUBLIMETEXT
 unset DIR_INSTALLED_PACKAGES
 unset DIR_USER
