@@ -512,7 +512,7 @@ defaults write org.m0k.transmission IncompleteDownloadFolder -string "/Volumes/R
 defaults write org.m0k.transmission DownloadAsk -bool false
 defaults write org.m0k.transmission MagnetOpenAsk -bool false
 # Trash original torrent files
-defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
+defaults write org.m0k.transmission DeleteOriginalTorrent -bool false
 # Hide the donate message
 defaults write org.m0k.transmission WarningDonate -bool false
 # Hide the legal disclaimer
