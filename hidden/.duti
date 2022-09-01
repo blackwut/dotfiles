@@ -31,7 +31,8 @@
 # `duti -l <uti>` to display all handlers for uti
 
 # app_id (bundle ID)				UTI						Role
-# The Unarchiver
+
+# Zip
 com.macpaw.site.theunarchiver		.7z						all
 com.macpaw.site.theunarchiver		.cab					all
 com.macpaw.site.theunarchiver		.gtar					all
@@ -47,52 +48,65 @@ com.macpaw.site.theunarchiver		.tar.gz					all
 com.macpaw.site.theunarchiver		.tgz					all
 com.macpaw.site.theunarchiver		.zip					all
 
-# Sublimetext 3
-com.sublimetext.3					public.plain-text		all
-com.sublimetext.3					public.source-code		all
-com.sublimetext.3					public.shell-script		all
-com.sublimetext.3					public.unix-executable	all
-com.sublimetext.3					.txt					all
-com.sublimetext.3					.nfo					all
-com.sublimetext.3					.md						all
-com.sublimetext.3					.json					all
-com.sublimetext.3					.yml					all
-com.sublimetext.3					.yaml					all
-com.sublimetext.3					.md						all
-com.sublimetext.3					.csv					all
-com.sublimetext.3					.py						all
-com.sublimetext.3					.rst					all
-com.sublimetext.3					.conf					all
-com.sublimetext.3					.c						all
-com.sublimetext.3					.go						all
-com.sublimetext.3					.sh						all
-com.sublimetext.3					.log					all
-com.sublimetext.3					.ini					all
-com.sublimetext.3					.rb						all
-com.sublimetext.3					.tex					all
-com.sublimetext.3					.bib					all
-com.sublimetext.3					.sty					all
-com.sublimetext.3					.cls					all
-com.sublimetext.3					.css					all
-com.sublimetext.3					.scss					all
-com.sublimetext.3					.less					all
-com.sublimetext.3					.sass					all
-com.sublimetext.3					.php					all
-com.sublimetext.3					.js						all
-abnerworks.Typora					LICENSE					all
-abnerworks.Typora					AUTHORS					all
-com.sublimetext.3					CHANGELOG				all
-com.sublimetext.3					CONTRIBUTE				all
-com.sublimetext.3					COPYING					all
-abnerworks.Typora					README					all
-abnerworks.Typora					TODO					all
-com.sublimetext.3					Dockerfile				all
-com.sublimetext.3					Brewfile				all
-abnerworks.Typora					Makefile				all
-com.sublimetext.3					Gemfile					all
-abnerworks.Typora					Markdown				all
+# Binary
+com.ridiculousfish.HexFiend 		obj 					all
+com.ridiculousfish.HexFiend 		bin 					all
+com.ridiculousfish.HexFiend 		aria2 					all
+com.ridiculousfish.HexFiend 		dat 					all
+com.ridiculousfish.HexFiend 		obj 					all
+com.ridiculousfish.HexFiend 		o 						all
+com.ridiculousfish.HexFiend 		rsrc 					all
+com.ridiculousfish.HexFiend 		pyc 					all
+com.ridiculousfish.HexFiend 		blob 					all
+com.ridiculousfish.HexFiend 		exe 					all
+com.ridiculousfish.HexFiend 		hex 					all
 
-#VLC
+# Text
+com.sublimetext.4					public.plain-text		all
+com.sublimetext.4					public.source-code		all
+com.sublimetext.4					public.shell-script		all
+com.sublimetext.4					public.unix-executable	all
+com.sublimetext.4					.txt					all
+com.sublimetext.4					.nfo					all
+com.sublimetext.4					.md						all
+com.sublimetext.4					.json					all
+com.sublimetext.4					.yml					all
+com.sublimetext.4					.yaml					all
+com.sublimetext.4					.md						all
+com.sublimetext.4					.csv					all
+com.sublimetext.4					.py						all
+com.sublimetext.4					.rst					all
+com.sublimetext.4					.conf					all
+com.sublimetext.4					.c						all
+com.sublimetext.4					.go						all
+com.sublimetext.4					.sh						all
+com.sublimetext.4					.log					all
+com.sublimetext.4					.ini					all
+com.sublimetext.4					.rb						all
+com.sublimetext.4					.tex					all
+com.sublimetext.4					.bib					all
+com.sublimetext.4					.sty					all
+com.sublimetext.4					.cls					all
+com.sublimetext.4					.css					all
+com.sublimetext.4					.scss					all
+com.sublimetext.4					.less					all
+com.sublimetext.4					.sass					all
+com.sublimetext.4					.php					all
+com.sublimetext.4					.js						all
+com.uranusjr.macdown				LICENSE					all
+com.uranusjr.macdown				AUTHORS					all
+com.sublimetext.4					CHANGELOG				all
+com.sublimetext.4					CONTRIBUTE				all
+com.sublimetext.4					COPYING					all
+com.uranusjr.macdown				README					all
+com.uranusjr.macdown				TODO					all
+com.sublimetext.4					Dockerfile				all
+com.sublimetext.4					Brewfile				all
+com.uranusjr.macdown				Makefile				all
+com.sublimetext.4					Gemfile					all
+com.uranusjr.macdown				Markdown				all
+
+# Media
 org.videolan.vlc					.mkv					all
 org.videolan.vlc					.mp4					all
 org.videolan.vlc					.mp3					all
@@ -116,5 +130,5 @@ org.videolan.vlc					.wav					all
 org.videolan.vlc					.3gp					all
 org.videolan.vlc					.flac					all
 
-#Transmission
+# Torrent
 org.m0k.transmission				.torrent				all

@@ -1,76 +1,57 @@
 #!/bin/sh
 
-# Check if trim is enabled
-if system_profiler SPSerialATADataType | grep -q 'TRIM Support: Yes'; then
-	echo "Trim is enabled!"
-else
-	echo "Pleaase enable Trim using: sudo trimforce enable"
-	exit
-fi
+DIR_HIDDEN="$HOME/Projects/dotfiles/hidden"
 
-DIR_HIDDEN="./hidden"
+echo "Installing Oh-My-Zsh"
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+chmod -R go-w '/opt/homebrew/share/zsh'
+chmod -R 755 /opt/homebrew/share
 
 echo "Installing brew..."
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-echo "Installing brew cask..."
-brew tap caskroom/cask
-
-brew install bash
-brew install bash-completion@2
-brew install git
-brew install gpg
-brew install macvim
 brew install htop
 brew install duti
+brew install git
 brew install python
-brew install dockutil
+# dockutil 3.0.2 is not available from brew/core up to now!
+brew install hpedrorodrigues/tools/dockutil
+# brew install dockutil
+brew install tmux
 
 # Utilities
-brew cask install smcfancontrol
-brew cask install gfxcardstatus
-brew cask install the-unarchiver
-brew cask install ifunbox
-brew cask install coconutbattery
-brew cask install unetbootin
-brew cask install vlc
-brew cask install dropbox
-brew cask install spectacle
-brew cask install microsoft-word
-brew cask install microsoft-excel
-brew cask install microsoft-powerpoint
-brew cask install appcleaner
-brew cask install menumeters
-brew cask install cyberduck
+brew install --cask mysides
+brew install --cask the-unarchiver
+brew install --cask vlc
+brew install --cask dropbox
+brew install --cask rectangle
+brew install --cask microsoft-word
+brew install --cask microsoft-excel
+brew install --cask microsoft-powerpoint
+brew install --cask appcleaner
+# brew install menumeters
 
 # Programming
-brew cask install sublime-text
-brew cask install typora
+brew install --cask sublime-text
+brew install --cask hex-fiend
+brew install --cask macdown
 
 # Browsers
-brew cask install google-chrome
+# brew cask install google-chrome
 
 # Socials
-brew cask install telegram-desktop
-brew cask install whatsapp
-brew cask install teamspeak-client
-brew cask install discord
-brew cask install skype
+brew install --cask telegram-desktop
+brew install --cask whatsapp
+brew install --cask discord
+brew install --cask skype
 
 # Downloads
-brew cask install transmission
-brew cask install jdownloader
+brew install --cask transmission
 
 # Remote Control
-brew cask install vnc-viewer
-brew cask install teamviewer
-
-# Virtualization
-brew cask install virtualbox
-
-# Games
-brew cask install battle-net
-brew cask install hstracker
+brew install --cask vnc-viewer
+brew install --cask teamviewer
 
 # Cleanup
 brew cleanup
@@ -84,74 +65,49 @@ mkdir -p ~/".config/htop"
 chmod 0700 "$DIR_HIDDEN/.*"
 ln "$DIR_HIDDEN/.config/htop/htoprc" ~/".config/htop/htoprc"
 ln "$DIR_HIDDEN/.aliases" ~/".aliases"
-ln "$DIR_HIDDEN/.bash_profile" ~/".bash_profile"
-ln "$DIR_HIDDEN/.bash_prompt" ~/".bash_prompt"
-ln "$DIR_HIDDEN/.bashrc" ~/".bashrc"
-ln "$DIR_HIDDEN/.duti" ~/".duti"
 ln "$DIR_HIDDEN/.editorconfig" ~/".editorconfig"
 ln "$DIR_HIDDEN/.exports" ~/".exports"
 ln "$DIR_HIDDEN/.functions" ~/".functions"
 ln "$DIR_HIDDEN/.gitignore" ~/".gitignore"
-ln "$DIR_HIDDEN/.inputrc" ~/".inputrc"
-ln "$DIR_HIDDEN/.editrc" ~/".editrc"
-mkdir -p ~/".scripts"
-chmod +x "wowfi.sh"
-ln "wowfi.sh" ~/".scripts/wowfi.sh"
 unset DIR_HIDDEN
+
+ZSHRC_SOURCES='
+# Source your files!
+for file in ~/.{aliases,functions,exports}; do
+        [ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
+'
+echo $ZSHRC_SOURCES >> ~/.zshrc
 
 # Add global git ignore
 git config --global core.excludesfile ~/".gitignore"
+# tell git to use symlinks if repo has symlinks (otherwise it DUPLICATES THE FILE ugh)
+git config --global core.symlinks true
 
-# Adding new bash shell
-sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
-# Change shell to current user
-chsh -s /usr/local/bin/bash $USER
-
-# List login itmes
-# osascript -e 'tell application "System Events" to get the name of every login item'
-# Add login item
-# osascript -e 'tell application "System Events" to make login item at end with properties {path:"/path/to/item_name", hidden:false}' 
-# Remove login item
-# osascript -e 'tell application "System Events" to delete login item "ITEMNAME"'
-
-# Adding smcFanControl to login items
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/smcFanControl.app", hidden:false}'
-# Adding Spectacle to login items
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Spectacle.app", hidden:false}'
-# Adding MenuMeters to login items
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/MenuMeters.app", hidden:false}'
-# Adding gfxCardStatus to login items
-osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/gfxCardStatus.app", hidden:false}'
-
-# smcFanControl Settings
-cp "./preferences/com.eidac.smcFanControl2.plist" ~/"Library/Preferences/com.eidac.smcFanControl2.plist"
-# MenuMeters Settings
-cp "./preferences/com.ragingmenace.MenuMeters.plist" ~/"Library/Preferences/com.ragingmenace.MenuMeters.plist"
-# gfxCardStatus Settings
-cp "./preferences/com.codykrieger.gfxCardStatus-Preferences.plist" "./preferences/com.codykrieger.gfxCardStatus.plist" ~/"Library/Preferences/."
 
 # Sublime Text 3 Settings
-DIR_SUBLIMETEXT=~/"Library/Application Support/Sublime Text 3"
-DIR_INSTALLED_PACKAGES="$DIR_SUBLIMETEXT/Installed Packages"
+DIR_SUBLIMETEXT=~/"Library/Application Support/Sublime Text"
+# DIR_INSTALLED_PACKAGES="$DIR_SUBLIMETEXT/Installed Packages"
 DIR_USER="$DIR_SUBLIMETEXT/Packages/User"
 
-mkdir -p "$DIR_INSTALLED_PACKAGES"
+# mkdir -p "$DIR_INSTALLED_PACKAGES"
 mkdir -p "$DIR_USER"
 
 echo "Downloading Package Control..."
-curl -fsSL "https://sublime.wbond.net/Package Control.sublime-package" -o "$DIR_INSTALLED_PACKAGES/Package Control.sublime-package"
-echo "Configuring desired packages"
+# curl -fsSL "https://sublime.wbond.net/Package Control.sublime-package" -o "$DIR_INSTALLED_PACKAGES/Package Control.sublime-package"
+# echo "Configuring desired packages"
 cp "./preferences/Preferences.sublime-settings" "$DIR_USER/Preferences.sublime-settings" 2> /dev/null
-cp "./preferences/Package Control.sublime-settings" "$DIR_USER" 2> /dev/null
-echo "Done. Launch Sublime and press ctrl +\` for a status!"
+# cp "./preferences/Package Control.sublime-settings" "$DIR_USER" 2> /dev/null
+# echo "Done. Launch Sublime and press ctrl +\` for a status!"
 
 
 # Disable Microsoft Update (Word, Excel, Powerpoint)
 # disable the service
-launchctl disable gui/$(id -u)/com.microsoft.update.agent
+# launchctl disable gui/$(id -u)/com.microsoft.update.agent
 # check that the service is disabled
-launchctl print-disabled gui/$(id -u) | grep microsoft
+# launchctl print-disabled gui/$(id -u) | grep microsoft
 
 unset DIR_SUBLIMETEXT
-unset DIR_INSTALLED_PACKAGES
+# unset DIR_INSTALLED_PACKAGES
 unset DIR_USER

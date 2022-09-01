@@ -1,2 +1,0 @@
-bind "\e[B" ed-search-next-history
-bind "\e[A" ed-search-prev-history
