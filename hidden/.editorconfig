@@ -10,7 +10,7 @@ insert_final_newline = true
 charset = utf-8
 # space > tab
 indent_style = space
-# 2 is enough
+# 2 is not enough
 indent_size = 4
 
 [Makefile]

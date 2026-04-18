@@ -69,6 +69,7 @@ ln "$DIR_HIDDEN/.editorconfig" ~/".editorconfig"
 ln "$DIR_HIDDEN/.exports" ~/".exports"
 ln "$DIR_HIDDEN/.functions" ~/".functions"
 ln "$DIR_HIDDEN/.gitignore" ~/".gitignore"
+ln "$DIR_HIDDEN/.tmux.conf" ~/".tmux.conf"
 unset DIR_HIDDEN
 
 ZSHRC_SOURCES='

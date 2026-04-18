@@ -61,22 +61,19 @@ defaults write com.apple.dock "no-bouncing" -bool "true"
 
 # Rearrange icons in dock
 dockutil --remove all --no-restart
-dockutil --add "/Applications/Safari.app" --no-restart
-dockutil --add "/Applications/Telegram Desktop.app" --no-restart
-dockutil --add "/Applications/WhatsApp.app" --no-restart
-dockutil --add "/Applications/Discord.app" --no-restart
-dockutil --add "/Applications/TextEdit.app" --no-restart
-dockutil --add "/Applications/Notes.app" --no-restart
-dockutil --add "/Applications/Calendar.app" --no-restart
-dockutil --add "/Applications/Maps.app" --no-restart
-dockutil --add "/Applications/App Store.app" --no-restart
-dockutil --add "/Applications/System Preferences.app" --no-restart
-dockutil --add "/Applications/Utilities/Terminal.app" --no-restart
-dockutil --add "/Applications/MacDown.app" --no-restart
-dockutil --add "/Applications/Sublime Text.app" --no-restart
-dockutil --add "/Applications" --view grid --display folder --sort name --no-restart
-dockutil --add "$HOME/Projects" --view grid --display folder --sort name --no-restart
-dockutil --add "$HOME/Downloads" --view grid --display folder --sort dateadded
+dockutil --add "/Applications/Safari.app" --allhomes --no-restart
+dockutil --add "/Applications/Mail.app" --allhomes --no-restart
+dockutil --add "/Applications/Telegram Desktop.app" --allhomes --no-restart
+dockutil --add "/Applications/Discord.app" --allhomes --no-restart
+dockutil --add "/Applications/TextEdit.app" --allhomes --no-restart
+dockutil --add "/Applications/Notes.app" --allhomes --no-restart
+dockutil --add "/Applications/Calendar.app" --allhomes --no-restart
+dockutil --add "/Applications/System Preferences.app" --allhomes --no-restart
+dockutil --add "/Applications/Utilities/Terminal.app" --allhomes --no-restart
+dockutil --add "/Applications/Visual Studio Code.app" --allhomes --no-restart
+dockutil --add "/Applications" --view grid --display folder --sort name --allhomes --no-restart
+dockutil --add "$HOME/Projects" --view grid --display folder --sort name --allhomes --no-restart
+dockutil --add "$HOME/Downloads" --view grid --display folder --sort dateadded --allhomes
 
 
 ###############################################################################
@@ -338,7 +335,7 @@ defaults write org.m0k.transmission RandomPort -bool true
 # PMSET - NVRAM - SYSTEMSETUP                                                 #
 ###############################################################################
 # Set display sleep to 1 minute
-sudo pmset -a displaysleep 1
+sudo pmset -a displaysleep 2
 # Disable wake on ethernet magic packet
 sudo pmset -a womp 0
 # Disable slightly turn down display brightness on battery
@@ -395,16 +392,14 @@ defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 
-
-# TODO: everything for trackpad
 ###############################################################################
 # Trackpad                                                                    #
 ###############################################################################
 # Map three finger tap to look-up dictionary
 defaults write com.apple.AppleMultitouchTrackpad "TrackpadThreeFingerTapGesture" -int "2"
 # Map bottom right corner to right-click
-defaults write com.apple.AppleMultitouchTrackpad "TrackpadCornerSecondaryClick" -int "2"
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadCornerSecondaryClick" -int "2"
+defaults write com.apple.AppleMultitouchTrackpad "TrackpadCornerSecondaryClick" -int "0"
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad "TrackpadCornerSecondaryClick" -int "0"
 # Tap to click
 defaults write com.apple.AppleMultitouchTrackpad "Clicking" -bool "true"
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad  "Clicking" -bool "true"
